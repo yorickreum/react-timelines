@@ -1,11 +1,15 @@
 import React, { PropTypes } from 'react'
 import TrackKeys from './'
 
-const TrackKey = ({ track, toggleOpen }) => {
+const noop = () => {}
+const TrackKey = ({ track, highlight = noop, toggleOpen = noop }) => {
   const { title, tracks, isOpen } = track
   return (
     <div className="track-key">
-      <div className="track-key__entry">
+      <div
+        className="track-key__entry"
+        onMouseEnter={() => { highlight(track) }}
+      >
         { (isOpen !== undefined) &&
           <button
             className={`track-key__toggle ${isOpen ? 'track-key__toggle--close' : 'track-key__toggle--open'}`}
@@ -29,6 +33,7 @@ TrackKey.propTypes = {
     tracks: PropTypes.arrayOf(PropTypes.shape({})),
     isOpen: PropTypes.bool
   }),
+  highlight: PropTypes.func,
   toggleOpen: PropTypes.func
 }
 

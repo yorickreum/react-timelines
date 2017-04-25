@@ -27,6 +27,7 @@ class Container extends Component {
       now,
       timebar,
       toggleOpen,
+      highlightTrack,
       toggleTrackOpen,
       zoomIn,
       zoomOut,
@@ -49,6 +50,7 @@ class Container extends Component {
             <Sidebar
               timebar={timebar}
               tracks={tracks}
+              highlightTrack={highlightTrack}
               toggleTrackOpen={toggleTrackOpen}
             />
           </div>
@@ -73,6 +75,7 @@ Container.propTypes = {
   timebar: PropTypes.shape({}).isRequired,
   tracks: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   toggleOpen: PropTypes.func.isRequired,
+  highlightTrack: PropTypes.func,
   toggleTrackOpen: PropTypes.func,
   zoomIn: PropTypes.func.isRequired,
   zoomOut: PropTypes.func.isRequired
