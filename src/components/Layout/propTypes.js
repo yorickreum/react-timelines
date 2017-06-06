@@ -7,5 +7,7 @@ export default {
   now: PropTypes.instanceOf(Date),
   isOpen: PropTypes.bool,
   toggleTrackOpen: PropTypes.func,
-  drag: PropTypes.shape({})
+  drag: PropTypes.shape({}),
+  scrollLeft: PropTypes.number,
+  updateScrollLeft: PropTypes.func
 }

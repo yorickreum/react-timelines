@@ -9,12 +9,15 @@ class LayoutContainer extends PureComponent {
     this.state = {
       headerMouseDown: false,
       startX: 0,
-      deltaX: 0
+      deltaX: 0,
+      scrollLeft: 0
     }
 
     this.handleHeaderMouseDown = this.handleHeaderMouseDown.bind(this)
     this.handleMouseUp = this.handleMouseUp.bind(this)
     this.handleHeaderMouseMove = this.handleHeaderMouseMove.bind(this)
+    this.updateScrollLeft = this.updateScrollLeft.bind(this)
+    this.updateTimelineBodyScroll = this.updateTimelineBodyScroll.bind(this)
   }
 
   componentDidMount() {
@@ -38,9 +41,24 @@ class LayoutContainer extends PureComponent {
 
   handleHeaderMouseMove(e) {
     if (this.state.headerMouseDown) {
-      const deltaX = this.state.startX - e.clientX
+      const deltaX = e.clientX - this.state.startX
       this.setState({ deltaX })
     }
+  }
+
+  updateScrollLeft(timeline) {
+    const scrollLeft = timeline.scrollLeft
+    this.setState({ scrollLeft })
+  }
+
+  updateTimelineBodyScroll(timeline, dragging) {
+    /* eslint-disable no-param-reassign */
+    if (dragging) {
+      timeline.scrollLeft = this.state.deltaX
+    } else {
+      timeline.scrollLeft = this.state.scrollLeft
+    }
+    /* eslint-enable */
   }
 
   render() {
@@ -50,9 +68,14 @@ class LayoutContainer extends PureComponent {
       x: this.state.deltaX,
       mouseDown: this.state.headerMouseDown
     }
+    const { scrollLeft } = this.state
+    const { updateTimelineBodyScroll } = this
+    const updateScrollLeft = this.updateScrollLeft
     return (
       <div>
-        {React.cloneElement(this.props.children, { drag })}
+        {React.cloneElement(
+          this.props.children,
+          { drag, scrollLeft, updateTimelineBodyScroll, updateScrollLeft })}
       </div>
     )
   }
