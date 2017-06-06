@@ -3,7 +3,16 @@ import Sidebar from '../Sidebar'
 import Timeline from '../Timeline'
 import propTypes from './propTypes'
 
-const Layout = ({ isOpen, tracks, now, time, timebar, toggleTrackOpen, clickElement }) => (
+const DefaultLayot = ({
+  isOpen,
+  tracks,
+  now,
+  time,
+  timebar,
+  toggleTrackOpen,
+  clickElement,
+  drag
+}) => (
   <div className={`rt-layout ${isOpen ? 'rt-is-open' : ''}`}>
     <div className="rt-layout__side">
       <Sidebar
@@ -15,6 +24,7 @@ const Layout = ({ isOpen, tracks, now, time, timebar, toggleTrackOpen, clickElem
     <div className="rt-layout__main">
       <div className="rt-layout__timeline">
         <Timeline
+          drag={drag}
           now={now}
           time={time}
           timebar={timebar}
@@ -26,6 +36,6 @@ const Layout = ({ isOpen, tracks, now, time, timebar, toggleTrackOpen, clickElem
   </div>
 )
 
-Layout.propTypes = propTypes
+DefaultLayot.propTypes = propTypes
 
-export default Layout
+export default DefaultLayot

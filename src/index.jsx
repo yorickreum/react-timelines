@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Controls from './components/Controls'
 import LayoutContainer from './components/Layout'
-import FixedLayout from './components/Layout/Fixed'
+import DefaultLayout from './components/Layout/Default'
 import StickyLayout from './components/Layout/Sticky'
 import createTime from './utils/time'
 
@@ -85,7 +85,7 @@ class Timeline extends Base {
       <div className="rt">
         { this.renderControls() }
         <LayoutContainer>
-          <FixedLayout
+          <DefaultLayout
             scale={scale}
             now={now}
             tracks={tracks}

@@ -8,8 +8,8 @@ class LayoutContainer extends PureComponent {
     super(props)
     this.state = {
       headerMouseDown: false,
-      dragStartX: 0,
-      dragX: 0
+      startX: 0,
+      deltaX: 0
     }
 
     this.handleHeaderMouseDown = this.handleHeaderMouseDown.bind(this)
@@ -28,7 +28,7 @@ class LayoutContainer extends PureComponent {
   handleHeaderMouseDown(e) {
     this.setState({
       headerMouseDown: true,
-      dragStartX: e.clientX
+      startX: e.clientX
     })
   }
 
@@ -38,8 +38,8 @@ class LayoutContainer extends PureComponent {
 
   handleHeaderMouseMove(e) {
     if (this.state.headerMouseDown) {
-      const xDiff = this.state.dragStartX - e.clientX
-      this.setState({ dragX: xDiff })
+      const deltaX = this.state.startX - e.clientX
+      this.setState({ deltaX })
     }
   }
 
@@ -47,7 +47,7 @@ class LayoutContainer extends PureComponent {
     const drag = {
       onDown: this.handleHeaderMouseDown,
       onMove: this.handleHeaderMouseMove,
-      x: this.state.dragX,
+      x: this.state.deltaX,
       mouseDown: this.state.headerMouseDown
     }
     return (
