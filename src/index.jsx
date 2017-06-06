@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Controls from './components/Controls'
-import Layout from './components/Layout'
+import LayoutContainer from './components/Layout'
+import FixedLayout from './components/Layout/Fixed'
 import StickyLayout from './components/Layout/Sticky'
 import createTime from './utils/time'
 
@@ -83,16 +84,18 @@ class Timeline extends Base {
     return (
       <div className="rt">
         { this.renderControls() }
-        <Layout
-          scale={scale}
-          now={now}
-          tracks={tracks}
-          timebar={timebar}
-          toggleTrackOpen={toggleTrackOpen}
-          time={this.state.time}
-          isOpen={isOpen}
-          clickElement={clickElement}
-        />
+        <LayoutContainer>
+          <FixedLayout
+            scale={scale}
+            now={now}
+            tracks={tracks}
+            timebar={timebar}
+            toggleTrackOpen={toggleTrackOpen}
+            time={this.state.time}
+            isOpen={isOpen}
+            clickElement={clickElement}
+          />
+        </LayoutContainer>
       </div>
     )
   }
@@ -114,16 +117,18 @@ class StickyTimeline extends Base {
     return (
       <div className="rt">
         { this.renderControls() }
-        <StickyLayout
-          scale={scale}
-          now={now}
-          tracks={tracks}
-          timebar={timebar}
-          toggleTrackOpen={toggleTrackOpen}
-          time={this.state.time}
-          isOpen={isOpen}
-          clickElement={clickElement}
-        />
+        <LayoutContainer>
+          <StickyLayout
+            scale={scale}
+            now={now}
+            tracks={tracks}
+            timebar={timebar}
+            toggleTrackOpen={toggleTrackOpen}
+            time={this.state.time}
+            isOpen={isOpen}
+            clickElement={clickElement}
+          />
+        </LayoutContainer>
       </div>
     )
   }

@@ -55,6 +55,9 @@ class StickyLayout extends PureComponent {
         this.updateTimelineBodyScroll()
       }
     }
+    if (prevProps.drag.x !== this.props.drag.x) {
+      this.updateTimelineBodyScroll(true)
+    }
   }
 
   componentWillUnmount() {
@@ -76,8 +79,12 @@ class StickyLayout extends PureComponent {
     this.setState({ sidebarWidth })
   }
 
-  updateTimelineBodyScroll() {
-    this.timeline.scrollLeft = this.state.scrollLeft
+  updateTimelineBodyScroll(dragging) {
+    if (dragging) {
+      this.timeline.scrollLeft = -this.props.drag.x
+    } else {
+      this.timeline.scrollLeft = this.state.scrollLeft
+    }
   }
 
   updateTimelineHeaderScroll() {
@@ -113,7 +120,7 @@ class StickyLayout extends PureComponent {
   }
 
   render() {
-    const { isOpen, tracks, now, time, timebar, toggleTrackOpen, clickElement } = this.props
+    const { isOpen, tracks, now, time, timebar, toggleTrackOpen, clickElement, drag } = this.props
     const {
       isSticky,
       headerHeight,
@@ -139,6 +146,7 @@ class StickyLayout extends PureComponent {
               timebar={timebar}
               tracks={tracks}
               clickElement={clickElement}
+              drag={drag}
               sticky={{
                 isSticky,
                 setHeaderHeight: this.setHeaderHeight,

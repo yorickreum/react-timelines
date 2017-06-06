@@ -25,6 +25,7 @@ class Timeline extends Component {
   }
 
   handleMouseMove(e) {
+    this.props.drag.onMove(e)
     this.setState({ pointerDate: this.props.time.fromX(getMouseX(e)) })
   }
 
@@ -43,7 +44,8 @@ class Timeline extends Component {
       timebar,
       tracks,
       sticky,
-      clickElement
+      clickElement,
+      drag
     } = this.props
     const {
       pointerDate,
@@ -69,6 +71,7 @@ class Timeline extends Component {
           onLeave={this.handleMouseLeave}
           width={time.timelineWidth}
           sticky={sticky}
+          drag={drag}
         />
         <Body time={time} tracks={tracks} clickElement={clickElement} />
       </div>
@@ -84,7 +87,10 @@ Timeline.propTypes = {
   timebar: propTypeTimebar.isRequired,
   tracks: PropTypes.arrayOf(PropTypes.shape({})),
   sticky: PropTypes.shape({}),
-  clickElement: PropTypes.func
+  clickElement: PropTypes.func,
+  drag: PropTypes.shape({
+    onMove: PropTypes.func
+  })
 }
 
 export default Timeline

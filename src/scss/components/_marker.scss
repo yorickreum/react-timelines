@@ -28,6 +28,7 @@
     $react-timelines-marker-pointer-background-color,
     $react-timelines-marker-line-transparency
   );
+  pointer-events: none;
 }
 
 .rt-marker--pointer.rt-is-highlighted {

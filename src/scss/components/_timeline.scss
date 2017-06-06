@@ -4,7 +4,9 @@
   padding-top: $react-timelines-marker-height;
 }
 
-.rt-timeline__header {}
+.rt-timeline__header {
+  cursor: grab;
+}
 
 .rt-timeline__header-scroll {
   overflow-x: auto;
@@ -19,6 +21,11 @@
   top: 0;
   z-index: 1;
   overflow: hidden;
+}
+
+.rt-timeline__header.rt-is-mousedown {
+  cursor: grabbing;
+  user-select: none;
 }
 
 .rt-timeline__body {

@@ -1,31 +1,65 @@
-import React from 'react'
-import Sidebar from '../Sidebar'
-import Timeline from '../Timeline'
-import propTypes from './propTypes'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 
-const Layout = ({ isOpen, tracks, now, time, timebar, toggleTrackOpen, clickElement }) => (
-  <div className={`rt-layout ${isOpen ? 'rt-is-open' : ''}`}>
-    <div className="rt-layout__side">
-      <Sidebar
-        timebar={timebar}
-        tracks={tracks}
-        toggleTrackOpen={toggleTrackOpen}
-      />
-    </div>
-    <div className="rt-layout__main">
-      <div className="rt-layout__timeline">
-        <Timeline
-          now={now}
-          time={time}
-          timebar={timebar}
-          tracks={tracks}
-          clickElement={clickElement}
-        />
+import { addListener, removeListener } from '../../utils/events'
+
+class LayoutContainer extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      headerMouseDown: false,
+      dragStartX: 0,
+      dragX: 0
+    }
+
+    this.handleHeaderMouseDown = this.handleHeaderMouseDown.bind(this)
+    this.handleMouseUp = this.handleMouseUp.bind(this)
+    this.handleHeaderMouseMove = this.handleHeaderMouseMove.bind(this)
+  }
+
+  componentDidMount() {
+    addListener('mouseup', this.handleMouseUp)
+  }
+
+  componentWillUnmount() {
+    removeListener('mouseup', this.handleMouseUp)
+  }
+
+  handleHeaderMouseDown(e) {
+    this.setState({
+      headerMouseDown: true,
+      dragStartX: e.clientX
+    })
+  }
+
+  handleMouseUp() {
+    this.setState({ headerMouseDown: false })
+  }
+
+  handleHeaderMouseMove(e) {
+    if (this.state.headerMouseDown) {
+      const xDiff = this.state.dragStartX - e.clientX
+      this.setState({ dragX: xDiff })
+    }
+  }
+
+  render() {
+    const drag = {
+      onDown: this.handleHeaderMouseDown,
+      onMove: this.handleHeaderMouseMove,
+      x: this.state.dragX,
+      mouseDown: this.state.headerMouseDown
+    }
+    return (
+      <div>
+        {React.cloneElement(this.props.children, { drag })}
       </div>
-    </div>
-  </div>
-)
+    )
+  }
+}
 
-Layout.propTypes = propTypes
+LayoutContainer.propTypes = {
+  children: PropTypes.node
+}
 
-export default Layout
+export default LayoutContainer

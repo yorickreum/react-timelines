@@ -45,17 +45,22 @@ class Header extends PureComponent {
       onLeave,
       width,
       timebar: rows,
+      drag: { onDown, mouseDown } = {},
       sticky: { isSticky, headerHeight, viewportWidth } = {}
     } = this.props
+    const draggingClass = mouseDown ? 'rt-is-mousedown' : ''
+    const stickyClass = isSticky ? 'rt-is-sticky' : ''
+    const className = `rt-timeline__header ${stickyClass} ${draggingClass}`
     return (
       <div
         style={isSticky ? { paddingTop: headerHeight } : {}}
         onMouseMove={onMove}
         onMouseEnter={onEnter}
         onMouseLeave={onLeave}
+        onMouseDown={onDown}
       >
         <div
-          className={`rt-timeline__header ${isSticky ? 'rt-is-sticky' : ''}`}
+          className={className}
           style={isSticky ? { width: viewportWidth, height: headerHeight } : {}}
         >
           <div className="rt-timeline__header-scroll" ref={(scroll) => { this.scroll = scroll }} onScroll={isSticky && this.handleScroll}>
@@ -85,6 +90,10 @@ Header.propTypes = {
     viewportWidth: PropTypes.number.isRequired,
     handleHeaderScrollY: PropTypes.func.isRequired,
     scrollLeft: PropTypes.number.isRequired
+  }),
+  drag: PropTypes.shape({
+    onDown: PropTypes.func,
+    mouseDown: PropTypes.bool
   })
 }
 
