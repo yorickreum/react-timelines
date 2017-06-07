@@ -5,6 +5,7 @@
 }
 
 .rt-timeline__header {
+  cursor: default;
   cursor: grab;
 }
 
@@ -24,6 +25,7 @@
 }
 
 .rt-timeline__header.rt-is-mousedown {
+  cursor: ew-resize;
   cursor: grabbing;
   user-select: none;
 }
