@@ -25,14 +25,13 @@ class StickyLayout extends PureComponent {
     this.setHeaderHeight = this.setHeaderHeight.bind(this)
     this.setTimelineViewportWidth = this.setTimelineViewportWidth.bind(this)
     this.updateSidebarWidth = this.updateSidebarWidth.bind(this)
-    this.updateTimelineHeaderScroll = this.updateTimelineHeaderScroll.bind(this)
   }
 
   componentDidMount() {
     addListener('scroll', this.handleScrollY)
     addListener('resize', this.handleResize)
     this.updateSidebarWidth()
-    this.updateTimelineHeaderScroll()
+    this.props.updateScrollLeft(this.timeline)
     this.props.updateTimelineBodyScroll(this.timeline)
     this.setTimelineViewportWidth(this.timeline.offsetWidth)
   }
@@ -44,11 +43,11 @@ class StickyLayout extends PureComponent {
 
     if (this.state.isSticky) {
       if (!prevState.isSticky) {
-        this.updateTimelineHeaderScroll()
+        this.props.updateScrollLeft(this.timeline)
         this.setTimelineViewportWidth(this.timeline.offsetWidth)
       }
 
-      if (this.state.scrollLeft !== prevState.scrollLeft) {
+      if (this.props.scrollLeft !== prevProps.scrollLeft) {
         this.props.updateTimelineBodyScroll(this.timeline)
       }
     }
@@ -76,12 +75,6 @@ class StickyLayout extends PureComponent {
     this.setState({ sidebarWidth })
   }
 
-  updateTimelineHeaderScroll() {
-    // const scrollLeft = this.timeline.scrollLeft
-    // this.setState({ scrollLeft })
-    this.props.updateScrollLeft(this.timeline)
-  }
-
   handleHeaderScrollY(scrollLeft) {
     raf(() => {
       this.setState({ scrollLeft })
@@ -99,7 +92,10 @@ class StickyLayout extends PureComponent {
   }
 
   handleScrollX() {
-    raf(this.updateTimelineHeaderScroll)
+    raf(() => {
+      this.props.updateScrollLeft(this.timeline)
+      this.props.updateTimelineBodyScroll(this.timeline)
+    })
   }
 
   handleResize() {
@@ -138,7 +134,7 @@ class StickyLayout extends PureComponent {
           />
         </div>
         <div className="rt-layout__main">
-          <div className="rt-layout__timeline" ref={(timeline) => { this.timeline = timeline }} onScroll={isSticky && this.handleScrollX}>
+          <div className="rt-layout__timeline" ref={(timeline) => { this.timeline = timeline }} onScroll={this.handleScrollX}>
             <Timeline
               now={now}
               time={time}

@@ -8,9 +8,11 @@ class LayoutContainer extends PureComponent {
     super(props)
     this.state = {
       headerMouseDown: false,
-      startX: 0,
+      startMouseX: 0,
       deltaX: 0,
-      scrollLeft: 0
+      startScrollLeft: 0,
+      scrollLeft: 0,
+      timeline: {}
     }
 
     this.handleHeaderMouseDown = this.handleHeaderMouseDown.bind(this)
@@ -31,7 +33,8 @@ class LayoutContainer extends PureComponent {
   handleHeaderMouseDown(e) {
     this.setState({
       headerMouseDown: true,
-      startX: e.clientX
+      startMouseX: e.clientX,
+      startScrollLeft: this.state.timeline.scrollLeft || 0
     })
   }
 
@@ -41,20 +44,20 @@ class LayoutContainer extends PureComponent {
 
   handleHeaderMouseMove(e) {
     if (this.state.headerMouseDown) {
-      const deltaX = e.clientX - this.state.startX
+      const deltaX = e.clientX - this.state.startMouseX
       this.setState({ deltaX })
     }
   }
 
   updateScrollLeft(timeline) {
     const scrollLeft = timeline.scrollLeft
-    this.setState({ scrollLeft })
+    this.setState({ scrollLeft, timeline })
   }
 
   updateTimelineBodyScroll(timeline, dragging) {
     /* eslint-disable no-param-reassign */
     if (dragging) {
-      timeline.scrollLeft = this.state.deltaX
+      timeline.scrollLeft = this.state.startScrollLeft - this.state.deltaX
     } else {
       timeline.scrollLeft = this.state.scrollLeft
     }
