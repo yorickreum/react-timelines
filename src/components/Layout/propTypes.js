@@ -9,5 +9,6 @@ export default {
   toggleTrackOpen: PropTypes.func,
   drag: PropTypes.shape({}),
   scrollLeft: PropTypes.number,
-  updateScrollLeft: PropTypes.func
+  updateScrollLeft: PropTypes.func,
+  handleHeaderScrollY: PropTypes.func
 }

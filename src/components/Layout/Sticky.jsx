@@ -18,7 +18,6 @@ class StickyLayout extends PureComponent {
     }
 
     this.handleScrollX = this.handleScrollX.bind(this)
-    this.handleHeaderScrollY = this.handleHeaderScrollY.bind(this)
     this.handleScrollY = this.handleScrollY.bind(this)
     this.handleResize = this.handleResize.bind(this)
 
@@ -75,12 +74,6 @@ class StickyLayout extends PureComponent {
     this.setState({ sidebarWidth })
   }
 
-  handleHeaderScrollY(scrollLeft) {
-    raf(() => {
-      this.setState({ scrollLeft })
-    })
-  }
-
   handleScrollY() {
     raf(() => {
       const { headerHeight } = this.state
@@ -115,7 +108,8 @@ class StickyLayout extends PureComponent {
       toggleTrackOpen,
       clickElement,
       drag,
-      scrollLeft
+      scrollLeft,
+      handleHeaderScrollY
     } = this.props
     const {
       isSticky,
@@ -146,7 +140,7 @@ class StickyLayout extends PureComponent {
                 isSticky,
                 setHeaderHeight: this.setHeaderHeight,
                 viewportWidth: timelineViewportWidth,
-                handleHeaderScrollY: this.handleHeaderScrollY,
+                handleHeaderScrollY,
                 headerHeight,
                 scrollLeft
               }}

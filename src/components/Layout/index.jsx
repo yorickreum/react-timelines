@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import { addListener, removeListener } from '../../utils/events'
-import getClientX from '../../utils/getClientX'
+import raf from '../../utils/raf'
 
 class LayoutContainer extends PureComponent {
   constructor(props) {
@@ -21,6 +21,7 @@ class LayoutContainer extends PureComponent {
     this.handleHeaderMouseMove = this.handleHeaderMouseMove.bind(this)
     this.updateScrollLeft = this.updateScrollLeft.bind(this)
     this.updateTimelineBodyScroll = this.updateTimelineBodyScroll.bind(this)
+    this.handleHeaderScrollY = this.handleHeaderScrollY.bind(this)
   }
 
   componentDidMount() {
@@ -36,7 +37,7 @@ class LayoutContainer extends PureComponent {
   handleHeaderMouseDown(e) {
     this.setState({
       headerMouseDown: true,
-      startMouseX: getClientX(e),
+      startMouseX: e.clientX,
       startScrollLeft: this.state.timeline.scrollLeft || 0
     })
   }
@@ -47,7 +48,7 @@ class LayoutContainer extends PureComponent {
 
   handleHeaderMouseMove(e) {
     if (this.state.headerMouseDown) {
-      const deltaX = getClientX(e) - this.state.startMouseX
+      const deltaX = e.clientX - this.state.startMouseX
       this.setState({ deltaX })
     }
   }
@@ -67,6 +68,12 @@ class LayoutContainer extends PureComponent {
     /* eslint-enable */
   }
 
+  handleHeaderScrollY(scrollLeft) {
+    raf(() => {
+      this.setState({ scrollLeft })
+    })
+  }
+
   render() {
     const drag = {
       onDown: this.handleHeaderMouseDown,
@@ -74,14 +81,17 @@ class LayoutContainer extends PureComponent {
       x: this.state.deltaX,
       mouseDown: this.state.headerMouseDown
     }
-    const { scrollLeft } = this.state
-    const { updateTimelineBodyScroll } = this
-    const updateScrollLeft = this.updateScrollLeft
+    const {
+      updateTimelineBodyScroll,
+      updateScrollLeft,
+      handleHeaderScrollY,
+      state: { scrollLeft }
+    } = this
     return (
       <div>
         {React.cloneElement(
           this.props.children,
-          { drag, scrollLeft, updateTimelineBodyScroll, updateScrollLeft })}
+          { drag, scrollLeft, updateTimelineBodyScroll, updateScrollLeft, handleHeaderScrollY })}
       </div>
     )
   }

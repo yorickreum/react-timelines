@@ -5,6 +5,12 @@ import Timebar from './Timebar'
 import { propTypeTimebar } from '../../propTypes'
 
 class Header extends PureComponent {
+  constructor() {
+    super()
+
+    this.handleScroll = this.handleScroll.bind(this)
+  }
+
   componentDidMount() {
     const { sticky } = this.props
     if (sticky) {
@@ -28,6 +34,10 @@ class Header extends PureComponent {
     }
   }
 
+  handleScroll() {
+    this.props.sticky.handleHeaderScrollY(this.scroll.scrollLeft)
+  }
+
   render() {
     const {
       time,
@@ -46,19 +56,15 @@ class Header extends PureComponent {
       <div
         style={isSticky ? { paddingTop: headerHeight } : {}}
         onMouseMove={onMove}
-        onTouchMove={onMove}
         onMouseEnter={onEnter}
         onMouseLeave={onLeave}
-        onTouchEnd={onLeave}
-        onTouchCancel={onLeave}
-        onTouchStart={onDown}
         onMouseDown={onDown}
       >
         <div
           className={className}
           style={isSticky ? { width: viewportWidth, height: headerHeight } : {}}
         >
-          <div className="rt-timeline__header-scroll" ref={(scroll) => { this.scroll = scroll }}>
+          <div className="rt-timeline__header-scroll" ref={(scroll) => { this.scroll = scroll }} onScroll={this.handleScroll}>
             <div
               ref={(timebar) => { this.timebar = timebar }}
               style={isSticky ? { width } : {}}
