@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import { addListener, removeListener } from '../../utils/events'
+import getClientX from '../../utils/getClientX'
 
 class LayoutContainer extends PureComponent {
   constructor(props) {
@@ -35,7 +36,7 @@ class LayoutContainer extends PureComponent {
   handleHeaderMouseDown(e) {
     this.setState({
       headerMouseDown: true,
-      startMouseX: isNaN(e.clientX) ? e.touches[0].clientX : e.clientX,
+      startMouseX: getClientX(e),
       startScrollLeft: this.state.timeline.scrollLeft || 0
     })
   }
@@ -46,7 +47,7 @@ class LayoutContainer extends PureComponent {
 
   handleHeaderMouseMove(e) {
     if (this.state.headerMouseDown) {
-      const deltaX = (isNaN(e.clientX) ? e.touches[0].clientX : e.clientX) - this.state.startMouseX
+      const deltaX = getClientX(e) - this.state.startMouseX
       this.setState({ deltaX })
     }
   }
