@@ -24,16 +24,18 @@ class LayoutContainer extends PureComponent {
 
   componentDidMount() {
     addListener('mouseup', this.handleMouseUp)
+    addListener('touchend', this.handleMouseUp)
   }
 
   componentWillUnmount() {
     removeListener('mouseup', this.handleMouseUp)
+    removeListener('touchend', this.handleMouseUp)
   }
 
   handleHeaderMouseDown(e) {
     this.setState({
       headerMouseDown: true,
-      startMouseX: e.clientX,
+      startMouseX: isNaN(e.clientX) ? e.touches[0].clientX : e.clientX,
       startScrollLeft: this.state.timeline.scrollLeft || 0
     })
   }
@@ -44,7 +46,7 @@ class LayoutContainer extends PureComponent {
 
   handleHeaderMouseMove(e) {
     if (this.state.headerMouseDown) {
-      const deltaX = e.clientX - this.state.startMouseX
+      const deltaX = (isNaN(e.clientX) ? e.touches[0].clientX : e.clientX) - this.state.startMouseX
       this.setState({ deltaX })
     }
   }

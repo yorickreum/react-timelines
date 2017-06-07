@@ -46,8 +46,12 @@ class Header extends PureComponent {
       <div
         style={isSticky ? { paddingTop: headerHeight } : {}}
         onMouseMove={onMove}
+        onTouchMove={onMove}
         onMouseEnter={onEnter}
         onMouseLeave={onLeave}
+        onTouchEnd={onLeave}
+        onTouchCancel={onLeave}
+        onTouchStart={onDown}
         onMouseDown={onDown}
       >
         <div
