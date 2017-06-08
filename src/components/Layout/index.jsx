@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { addListener, removeListener } from '../../utils/events'
 import raf from '../../utils/raf'
 
-class Layout extends PureComponent {
+const Layout = EnhancedLayout => class extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -87,13 +87,15 @@ class Layout extends PureComponent {
       handleHeaderScrollY,
       state: { scrollLeft }
     } = this
-    return (
-      <div>
-        {React.cloneElement(
-          this.props.children,
-          { drag, scrollLeft, updateTimelineBodyScroll, updateScrollLeft, handleHeaderScrollY })}
-      </div>
-    )
+    const props = {
+      ...this.props,
+      drag,
+      scrollLeft,
+      updateTimelineBodyScroll,
+      updateScrollLeft,
+      handleHeaderScrollY
+    }
+    return <EnhancedLayout {...props} />
   }
 }
 

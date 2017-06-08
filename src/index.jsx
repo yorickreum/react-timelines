@@ -72,6 +72,7 @@ Base.propTypes = basePropTypes
 
 class Timeline extends Base {
   render() {
+    const EnhancedLayout = Layout(DefaultLayout)
     const {
       isOpen = true,
       tracks,
@@ -84,18 +85,16 @@ class Timeline extends Base {
     return (
       <div className="rt">
         { this.renderControls() }
-        <Layout>
-          <DefaultLayout
-            scale={scale}
-            now={now}
-            tracks={tracks}
-            timebar={timebar}
-            toggleTrackOpen={toggleTrackOpen}
-            time={this.state.time}
-            isOpen={isOpen}
-            clickElement={clickElement}
-          />
-        </Layout>
+        <EnhancedLayout
+          scale={scale}
+          now={now}
+          tracks={tracks}
+          timebar={timebar}
+          toggleTrackOpen={toggleTrackOpen}
+          time={this.state.time}
+          isOpen={isOpen}
+          clickElement={clickElement}
+        />
       </div>
     )
   }
@@ -105,6 +104,7 @@ Timeline.propTypes = timelinePropTypes
 
 class StickyTimeline extends Base {
   render() {
+    const EnhancedLayout = Layout(StickyLayout)
     const {
       isOpen = true,
       tracks,
@@ -117,18 +117,16 @@ class StickyTimeline extends Base {
     return (
       <div className="rt">
         { this.renderControls() }
-        <Layout>
-          <StickyLayout
-            scale={scale}
-            now={now}
-            tracks={tracks}
-            timebar={timebar}
-            toggleTrackOpen={toggleTrackOpen}
-            time={this.state.time}
-            isOpen={isOpen}
-            clickElement={clickElement}
-          />
-        </Layout>
+        <EnhancedLayout
+          scale={scale}
+          now={now}
+          tracks={tracks}
+          timebar={timebar}
+          toggleTrackOpen={toggleTrackOpen}
+          time={this.state.time}
+          isOpen={isOpen}
+          clickElement={clickElement}
+        />
       </div>
     )
   }
