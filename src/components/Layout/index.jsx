@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { addListener, removeListener } from '../../utils/events'
 import raf from '../../utils/raf'
 
-class LayoutContainer extends PureComponent {
+class Layout extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -97,8 +97,8 @@ class LayoutContainer extends PureComponent {
   }
 }
 
-LayoutContainer.propTypes = {
+Layout.propTypes = {
   children: PropTypes.node
 }
 
-export default LayoutContainer
+export default Layout

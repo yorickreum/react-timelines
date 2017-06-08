@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Controls from './components/Controls'
-import LayoutContainer from './components/Layout'
+import Layout from './components/Layout'
 import DefaultLayout from './components/Layout/Default'
 import StickyLayout from './components/Layout/Sticky'
 import createTime from './utils/time'
@@ -84,7 +84,7 @@ class Timeline extends Base {
     return (
       <div className="rt">
         { this.renderControls() }
-        <LayoutContainer>
+        <Layout>
           <DefaultLayout
             scale={scale}
             now={now}
@@ -95,7 +95,7 @@ class Timeline extends Base {
             isOpen={isOpen}
             clickElement={clickElement}
           />
-        </LayoutContainer>
+        </Layout>
       </div>
     )
   }
@@ -117,7 +117,7 @@ class StickyTimeline extends Base {
     return (
       <div className="rt">
         { this.renderControls() }
-        <LayoutContainer>
+        <Layout>
           <StickyLayout
             scale={scale}
             now={now}
@@ -128,7 +128,7 @@ class StickyTimeline extends Base {
             isOpen={isOpen}
             clickElement={clickElement}
           />
-        </LayoutContainer>
+        </Layout>
       </div>
     )
   }
