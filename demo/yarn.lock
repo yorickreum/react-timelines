@@ -3427,9 +3427,9 @@ react-dom@^15.5.4:
     object-assign "^4.1.0"
     prop-types "~15.5.7"
 
-react-timelines@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/react-timelines/-/react-timelines-0.6.3.tgz#724ac2fbb42388ab61ee3b420465665304624a24"
+react-timelines@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-timelines/-/react-timelines-1.0.0.tgz#d0c842b21f2c511b970477743257cd6b9dd7b460"
   dependencies:
     prop-types "^15.5.0"
 

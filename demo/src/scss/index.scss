@@ -1,5 +1,17 @@
 @import '~react-timelines/src/scss/style';
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
-  background: blue !important;
+  background-color: #f0f0f0;
 }
