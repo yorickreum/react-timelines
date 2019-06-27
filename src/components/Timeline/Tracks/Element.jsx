@@ -8,10 +8,12 @@ const Element = (props) => {
   const { time, style, title, start, end, classes, dataSet, tooltip, clickElement } = props
 
   const handleClick = () => { clickElement(props) }
+
+  const positionStyle = (end === null) ? time.toStyleLeft(start) : time.toStyleLeftAndWidth(start, end);
   const elementStyle = {
-    ...time.toStyleLeftAndWidth(start, end),
+    ...positionStyle,
     ...clickElement ? { cursor: 'pointer' } : {}
-  }
+  };
 
   return (
     <div

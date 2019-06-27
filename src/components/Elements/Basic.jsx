@@ -31,7 +31,7 @@ const Basic = ({
           <div>
             <div>{title}</div>
             <div><strong>Start</strong> {getDayMonth(start)}</div>
-            <div><strong>End</strong> {getDayMonth(end)}</div>
+            {end && (<div><strong>End</strong> {getDayMonth(end)}</div>) }
           </div>
         )
       }
@@ -42,7 +42,7 @@ const Basic = ({
 Basic.propTypes = {
   title: PropTypes.string.isRequired,
   start: PropTypes.instanceOf(Date).isRequired,
-  end: PropTypes.instanceOf(Date).isRequired,
+  end: PropTypes.instanceOf(Date),
   style: PropTypes.shape({}),
   classes: PropTypes.arrayOf(PropTypes.string.isRequired),
   dataSet: PropTypes.shape({}),
