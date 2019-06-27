@@ -13,34 +13,36 @@ const buildDataAttributes = (attributes = {}) => {
 
 const Basic = ({
   title, start, end, style, classes, dataSet, tooltip
-}) => (
-  <div
-    className={createClasses('rt-element', classes)}
-    style={{
-      ...style,
-      ...end ? { borderLeft: '3px solid red'} : {}
-    }}
-    {...buildDataAttributes(dataSet)}
-  >
-    <div className="rt-element__content" aria-hidden="true">
-      <span className="rt-element__title">{ title }</span>
-    </div>
-    <div className="rt-element__tooltip">
-      {
-        tooltip
-        // eslint-disable-next-line react/no-danger
-        ? <div dangerouslySetInnerHTML={{ __html: tooltip.split('\n').join('<br>') }} />
-        : (
-          <div>
-            <div>{title}</div>
-            <div><strong>Start</strong> {getDayMonth(start)}</div>
-            {end && (<div><strong>End</strong> {getDayMonth(end)}</div>) }
-          </div>
-        )
-      }
-    </div>
-  </div>
-)
+}) => {
+  return (
+      <div
+          className={createClasses('rt-element', classes)}
+          style={{
+            ...style,
+            ...end ? { borderLeft: '3px solid red'} : {}
+          }}
+          {...buildDataAttributes(dataSet)}
+      >
+        <div className="rt-element__content" aria-hidden="true">
+          <span className="rt-element__title">{ title }</span>
+        </div>
+        <div className="rt-element__tooltip">
+          {
+            tooltip
+                // eslint-disable-next-line react/no-danger
+                ? <div dangerouslySetInnerHTML={{ __html: tooltip.split('\n').join('<br>') }} />
+                : (
+                    <div>
+                      <div>{title}</div>
+                      <div><strong>Start</strong> {getDayMonth(start)}</div>
+                      {end && (<div><strong>End</strong> {getDayMonth(end)}</div>) }
+                    </div>
+                )
+          }
+        </div>
+      </div>
+  )
+}
 
 Basic.propTypes = {
   title: PropTypes.string.isRequired,

@@ -3,13 +3,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import BasicElement from '../../Elements/Basic'
+import NumberElement from '../../Elements/Number'
 
 const Element = (props) => {
-  const { time, style, title, start, end, classes, dataSet, tooltip, clickElement } = props
+  const { time, style, title, start, end, classes, dataSet, tooltip, clickElement, numericValue, maxValue, lowValue } = props
 
   const handleClick = () => { clickElement(props) }
 
-  const positionStyle = (end === null) ? time.toStyleLeft(start) : time.toStyleLeftAndWidth(start, end);
+  const positionStyle = (end == null) ? time.toStyleLeft(start) : time.toStyleLeftAndWidth(start, end);
   const elementStyle = {
     ...positionStyle,
     ...clickElement ? { cursor: 'pointer' } : {}
@@ -21,7 +22,7 @@ const Element = (props) => {
       style={elementStyle}
       onClick={(clickElement && handleClick) && handleClick}
     >
-      <BasicElement
+      {(numericValue == null) ? (<BasicElement
         title={title}
         start={start}
         end={end}
@@ -29,7 +30,18 @@ const Element = (props) => {
         classes={classes}
         dataSet={dataSet}
         tooltip={tooltip}
-      />
+      />) : (<NumberElement
+        title={title}
+        start={start}
+        end={end}
+        style={style}
+        classes={classes}
+        dataSet={dataSet}
+        tooltip={tooltip}
+        numericValue={numericValue}
+        maxValue={maxValue}
+        lowValue={lowValue}
+    />)}
     </div>
   )
 }
@@ -41,9 +53,12 @@ Element.propTypes = {
   dataSet: PropTypes.shape({}),
   title: PropTypes.string,
   start: PropTypes.instanceOf(Date).isRequired,
-  end: PropTypes.instanceOf(Date).isRequired,
+  end: PropTypes.instanceOf(Date),
   tooltip: PropTypes.string,
-  clickElement: PropTypes.func
+  clickElement: PropTypes.func,
+  numericValue: PropTypes.number,
+  maxValue: PropTypes.number,
+  lowValue: PropTypes.number
 }
 
 Element.defaultTypes = {
