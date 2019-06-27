@@ -9,7 +9,7 @@ const Track = ({ time, elements, isOpen, tracks, clickElement }) => (
     <div className="rt-track__elements">
       {
         elements
-          .filter(({ start, end }) => (end > start))
+          .filter(({ start, end }) => (end == null || end > start))
           .map(element => (
             <Element
               key={element.id}
