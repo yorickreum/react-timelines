@@ -16,7 +16,10 @@ const Basic = ({
 }) => (
   <div
     className={createClasses('rt-element', classes)}
-    style={style}
+    style={{
+      ...style,
+      ...end ? { borderLeft: '3px solid red'} : {}
+    }}
     {...buildDataAttributes(dataSet)}
   >
     <div className="rt-element__content" aria-hidden="true">
