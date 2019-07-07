@@ -17,7 +17,8 @@
   text-overflow: ellipsis;
 }
 
-.rt-element__tooltip {
+.rt-element__tooltip,
+.rt-timebar__cell__tooltip {
   position: absolute;
   bottom: 100%;
   left: 50%;
@@ -44,8 +45,18 @@
   }
 }
 
+//.rt-timebar__cell__tooltip {
+//  bottom: 51%;
+//
+//  &::before {
+//    display: none;
+//  }
+//}
+
 .rt-element:hover > .rt-element__tooltip,
-.rt-element:focus > .rt-element__tooltip {
+.rt-element:focus > .rt-element__tooltip,
+.rt-timebar__cell:hover > .rt-timebar__cell__tooltip,
+.rt-timebar__cell:focus > .rt-timebar__cell__tooltip {
   $delay: 0.3s;
   transform: translateX(-50%) scale(1);
   transition: transform 0s $delay;

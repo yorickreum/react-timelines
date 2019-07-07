@@ -19,7 +19,7 @@ const Basic = ({
           className={createClasses('rt-element', classes)}
           style={{
             ...style,
-            ...end ? { borderLeft: '3px solid red'} : {}
+            ...end ? {} : {borderLeft: '3px solid red'}
           }}
           {...buildDataAttributes(dataSet)}
       >
