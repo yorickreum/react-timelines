@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { getDayMonth } from '../../utils/formatDate'
+import {getDayMonth} from '../../utils/formatDate'
 import createClasses from '../../utils/classes'
 
 const buildDataAttributes = (attributes = {}) => {
@@ -34,8 +34,11 @@ const Basic = ({
                 : (
                     <div>
                       <div>{title}</div>
-                      <div><strong>Start</strong> {getDayMonth(start)}</div>
-                      {end && (<div><strong>End</strong> {getDayMonth(end)}</div>) }
+                        {end ? ( <React.Fragment>
+                            <div><strong>Start</strong> {getDayMonth(start)}</div>
+                            <div><strong>End</strong> {getDayMonth(end)}</div></React.Fragment>) :
+                            (<div><strong>Time</strong> {start.toLocaleDateString("nb-NO")}</div>)
+                        }
                     </div>
                 )
           }

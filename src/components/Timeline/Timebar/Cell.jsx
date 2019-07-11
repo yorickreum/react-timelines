@@ -2,11 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {getDayMonth} from "../../../utils/formatDate";
 
-const Cell = ({
-                  time, title, start, end, style, linkTarget, tooltip
-              }) => {
-    console.log("tooltip");
-    console.log(tooltip);
+const Cell = ({time, title, start, end, style, linkTarget, tooltip}) => {
 
     const Wrapper = ({children}) => (
         <a href={linkTarget}>
