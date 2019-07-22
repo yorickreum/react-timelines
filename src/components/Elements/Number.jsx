@@ -32,8 +32,6 @@ const axes = [
 const Number = ({
   title, start, end, style, classes, dataSet, tooltip, numericValue, maxValue, lowValue
 }) => {
-    console.log("dataset");
-    console.log(dataSet);
     return (
         <div
             className={createClasses('rt-element', classes)}
