@@ -1,3 +1,8 @@
+# react-timelines
+
+Used for some parts of the Web-PaDaWaN (forked from https://github.com/JSainsburyPLC/react-timelines)
+
+
 # React Timelines [![CircleCI](https://circleci.com/gh/JSainsburyPLC/react-timelines.svg?style=svg)](https://circleci.com/gh/JSainsburyPLC/react-timelines)
 
 ## [Demo](https://jsainsburyplc.github.io/react-timelines/)
