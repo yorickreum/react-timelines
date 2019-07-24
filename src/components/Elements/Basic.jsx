@@ -37,7 +37,7 @@ const Basic = ({
                         {end ? ( <React.Fragment>
                             <div><strong>Start</strong> {getDayMonth(start)}</div>
                             <div><strong>End</strong> {getDayMonth(end)}</div></React.Fragment>) :
-                            (<div><strong>Time</strong> {start.toLocaleDateString("nb-NO")}</div>)
+                            (<div><strong>Zeit</strong> {start.toLocaleDateString("nb-NO")}</div>)
                         }
                     </div>
                 )
